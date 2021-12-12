@@ -63,11 +63,33 @@ class Products extends ChangeNotifier {
   }
 
   void addToShoppingCart({required String id, required int count}) {
+    final product;
+
+    if (_shoppingCartProducts.contains(getProductById(id)) ||
+        _products.contains(getProductById(id))) {
+      product = products.firstWhere((e) => e.id == id);
+    } else {
+      return;
+    }
+
     if (_shoppingCartProducts.contains(getProductById(id))) {
-      _shoppingCartProducts.firstWhere((e) => e.id == id).addCountInCart(count);
+      product.addCountInCart(count);
     } else {
       _shoppingCartProducts.add(getProductById(id));
+      product.addCountInCart(count);
     }
+
+    if (product.countInCart <= 0) {
+      removeFromShoppingCart(id: product.id);
+    }
+
     notifyListeners();
+  }
+
+  void removeFromShoppingCart({required String id}) {
+    if (_shoppingCartProducts.contains(getProductById(id))) {
+      _shoppingCartProducts.removeWhere((e) => e.id == id);
+      notifyListeners();
+    }
   }
 }

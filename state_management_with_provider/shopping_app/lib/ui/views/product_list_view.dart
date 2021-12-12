@@ -24,7 +24,11 @@ class ProductListView extends StatelessWidget {
             margin: const EdgeInsets.all(20),
             child: Column(
               children: [
-                Image.network(products[index].imageUrl),
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  height: 100,
+                  child: Image.network(products[index].imageUrl),
+                ),
                 const SizedBox(height: 15),
                 Text(
                   '${products[index].name} : RM${products[index].price}',
