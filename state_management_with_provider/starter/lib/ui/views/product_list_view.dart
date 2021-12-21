@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:shopping_app/core/models/product.dart';
-import 'package:shopping_app/core/models/products.dart';
+import 'package:shopping_app/ui/views/single_product_view.dart';
 
 class ProductListView extends StatelessWidget {
+  final List<Product> _products;
+
   const ProductListView({
     Key? key,
-  }) : super(key: key);
+    required products,
+  })  : _products = products,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    print('build product list view');
-    final List<Product> products =
-        Provider.of<Products>(context, listen: false).products;
-
     return ListView.builder(
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () => Navigator.pushNamed(context, '/single-product',
-              arguments: products[index].id),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) =>
+                  // again, passing through constructor
+                  SingleProductView(product: _products[index]),
+            ),
+          ),
           child: Card(
             elevation: 8,
             margin: const EdgeInsets.all(20),
@@ -27,11 +32,11 @@ class ProductListView extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   height: 100,
-                  child: Image.network(products[index].imageUrl),
+                  child: Image.network(_products[index].imageUrl),
                 ),
                 const SizedBox(height: 15),
                 Text(
-                  '${products[index].name} : RM${products[index].price}',
+                  '${_products[index].name} : RM${_products[index].price}',
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -43,7 +48,7 @@ class ProductListView extends StatelessWidget {
           ),
         );
       },
-      itemCount: products.length,
+      itemCount: _products.length,
     );
   }
 }

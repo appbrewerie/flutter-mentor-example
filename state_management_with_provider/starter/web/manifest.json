@@ -1,6 +1,6 @@
 {
-    "name": "starter",
-    "short_name": "starter",
+    "name": "shopping_app",
+    "short_name": "shopping_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

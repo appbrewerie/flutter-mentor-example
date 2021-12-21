@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shopping_app/core/models/product.dart';
 
 class Products extends ChangeNotifier {

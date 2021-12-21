@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_app/ui/views/shopping_cart_view.dart';
 
 class DefaultScaffold extends StatelessWidget {
   final String title;
@@ -19,7 +20,12 @@ class DefaultScaffold extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, '/shopping-cart');
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const ShoppingCartView(),
+                ),
+              );
             },
             icon: const Icon(Icons.shopping_bag_outlined),
           ),

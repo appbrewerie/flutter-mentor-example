@@ -1,26 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shopping_app/ui/app_router.dart';
 import 'package:shopping_app/ui/shared/theme.dart';
-import 'package:shopping_app/core/models/products.dart';
+import 'package:shopping_app/ui/views/home_view.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => Products(),
-      child: MaterialApp(
-        title: 'Shopping App',
-        theme: myTheme,
-        initialRoute: '/',
-        onGenerateRoute: AppRouter.generateRoute,
-      ),
+    return MaterialApp(
+      title: 'Shopping App',
+      theme: myTheme,
+      home: HomeView(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

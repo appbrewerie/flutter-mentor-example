@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shopping_app/core/models/products.dart';
-import 'package:shopping_app/ui/shared/default_scaffold.dart';
+import 'package:shopping_app/core/models/product.dart';
+import 'package:shopping_app/ui/widgets/default_scaffold.dart';
 
 class SingleProductView extends StatelessWidget {
-  const SingleProductView({Key? key}) : super(key: key);
+  final Product _product;
+
+  const SingleProductView({
+    Key? key,
+    required product,
+  })  : _product = product,
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final String productId =
-        ModalRoute.of(context)!.settings.arguments as String;
-    final product =
-        Provider.of<Products>(context, listen: false).getProductById(productId);
-
     return DefaultScaffold(
-      title: product.name,
+      title: _product.name,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Image.network(product.imageUrl),
+            Image.network(_product.imageUrl),
             const SizedBox(height: 15),
             const Text(
               'Product Description',
@@ -30,7 +30,7 @@ class SingleProductView extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Text(
-              '${product.description}',
+              '${_product.description}',
               style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w300,
@@ -41,12 +41,11 @@ class SingleProductView extends StatelessWidget {
             ElevatedButton.icon(
               icon: const Icon(Icons.payment),
               label: const Text(
-                'Buy Now',
+                'Add to Cart',
                 style: TextStyle(fontWeight: FontWeight.w300, fontSize: 30),
               ),
               onPressed: () {
-                Provider.of<Products>(context, listen: false)
-                    .addToShoppingCart(id: product.id, count: 1);
+                // TODO - implement addToShoppingCart
               },
               style: ElevatedButton.styleFrom(
                 elevation: 8,
